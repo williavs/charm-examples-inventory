@@ -1,0 +1,38 @@
+[
+  {
+    "session_id": "42349634-6e6f-441c-9d53-56a79e942546",
+    "transcript_path": "/home/wv3/.claude/projects/-home-wv3-tui-building/42349634-6e6f-441c-9d53-56a79e942546.jsonl",
+    "cwd": "/home/wv3/tui-building/texamples",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd texamples && git add .",
+      "description": "Add all files to git staging"
+    }
+  },
+  {
+    "session_id": "42349634-6e6f-441c-9d53-56a79e942546",
+    "transcript_path": "/home/wv3/.claude/projects/-home-wv3-tui-building/42349634-6e6f-441c-9d53-56a79e942546.jsonl",
+    "cwd": "/home/wv3/tui-building/texamples",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "pwd && ls -la | rg texamples",
+      "description": "Check current directory and find texamples"
+    }
+  },
+  {
+    "session_id": "42349634-6e6f-441c-9d53-56a79e942546",
+    "transcript_path": "/home/wv3/.claude/projects/-home-wv3-tui-building/42349634-6e6f-441c-9d53-56a79e942546.jsonl",
+    "cwd": "/home/wv3/tui-building/texamples",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "git add .",
+      "description": "Add all files to git staging"
+    }
+  }
+]

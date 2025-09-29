@@ -1,0 +1,39 @@
+[
+  {
+    "session_id": "42349634-6e6f-441c-9d53-56a79e942546",
+    "transcript_path": "/home/wv3/.claude/projects/-home-wv3-tui-building/42349634-6e6f-441c-9d53-56a79e942546.jsonl",
+    "cwd": "/home/wv3/tui-building/texamples",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd texamples && git init",
+      "description": "Initialize git repository in texamples directory"
+    },
+    "tool_response": {
+      "stdout": "Initialized empty Git repository in /home/wv3/tui-building/texamples/.git/\nhint: Using 'master' as the name for the initial branch. This default branch name\nhint: is subject to change. To configure the initial branch name to use in all\nhint: of your new repositories, which will suppress this warning, call:\nhint: \nhint: \tgit config --global init.defaultBranch <name>\nhint: \nhint: Names commonly chosen instead of 'master' are 'main', 'trunk' and\nhint: 'development'. The just-created branch can be renamed via this command:\nhint: \nhint: \tgit branch -m <name>",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "42349634-6e6f-441c-9d53-56a79e942546",
+    "transcript_path": "/home/wv3/.claude/projects/-home-wv3-tui-building/42349634-6e6f-441c-9d53-56a79e942546.jsonl",
+    "cwd": "/home/wv3/tui-building/texamples",
+    "permission_mode": "acceptEdits",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "pwd && ls -la | rg texamples",
+      "description": "Check current directory and find texamples"
+    },
+    "tool_response": {
+      "stdout": "/home/wv3/tui-building/texamples",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false,
+      "returnCodeInterpretation": "No matches found"
+    }
+  }
+]
