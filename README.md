@@ -310,6 +310,126 @@ Generated from Charmbracelet ecosystem repositories as of September 2025.
 - Real-time data updates through goroutines and channels
 - API integration with JSON parsing and error handling
 
+## Bubble Tea API Features
+
+**Recent Updates (v0.23.0 - v2.0 Beta)** - See [BUBBLETEA_API_FEATURES.md](./BUBBLETEA_API_FEATURES.md) for complete documentation
+
+### Program Control
+
+#### tea.Interrupt vs tea.Quit (v1.3.0)
+Graceful interrupt handling for production applications.
+
+```go
+case tea.KeyMsg:
+    if msg.Type == tea.KeyCtrlC {
+        return m, tea.Interrupt  // Graceful shutdown
+    }
+```
+
+### Message Filtering (v0.24.0)
+
+#### tea.WithFilter()
+Filter messages before processing - essential for modal dialogs and preventing unwanted quits.
+
+```go
+filter := func(m tea.Model, msg tea.Msg) tea.Msg {
+    if model.modalOpen {
+        if _, ok := msg.(tea.QuitMsg); ok {
+            return nil  // Block quit when modal is open
+        }
+    }
+    return msg
+}
+p := tea.NewProgram(model, tea.WithFilter(filter))
+```
+
+### Focus/Blur Events (v1.1.0)
+
+Track window focus for better UX. Example: [`focus-blur`](./bubbletea/examples/focus-blur/)
+
+```go
+p := tea.NewProgram(model, tea.WithReportFocus())
+
+case tea.FocusMsg:
+    m.hasFocus = true
+case tea.BlurMsg:
+    m.hasFocus = false
+```
+
+**Note:** Requires tmux config: `set-option -g focus-events on`
+
+### Suspend/Resume (v0.27.0)
+
+Handle Ctrl+Z programmatically. Example: [`suspend`](./bubbletea/examples/suspend/)
+
+```go
+case tea.KeyMsg:
+    if msg.Type == tea.KeyCtrlZ {
+        return m, tea.Suspend
+    }
+case tea.ResumeMsg:
+    m.status = "Resumed from suspend"
+```
+
+### Bracketed Paste (v0.26.0)
+
+**Performance boost for pasting large text** (SQL queries, code blocks, etc.)
+
+```go
+// v1.x - Check KeyMsg.Paste
+case tea.KeyMsg:
+    if msg.Paste {
+        m.content += msg.String()
+    }
+
+// v2.x - Dedicated message types
+case tea.PasteMsg:
+    m.text += string(msg)
+```
+
+**Disable for sensitive input:**
+```go
+return m, tea.DisableBracketedPaste
+```
+
+### Testing with teatest (v0.24.0)
+
+Official testing package for Bubble Tea applications.
+
+```go
+import "github.com/charmbracelet/x/exp/teatest"
+
+func TestApp(t *testing.T) {
+    tm := teatest.NewTestModel(t, model{},
+        teatest.WithInitialTermSize(300, 100))
+
+    teatest.WaitFor(t, tm.Output(),
+        func(bts []byte) bool {
+            return bytes.Contains(bts, []byte("ready"))
+        })
+
+    tm.Send(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune("q")})
+    tm.WaitFinished(t, teatest.WithFinalTimeout(time.Second))
+}
+```
+
+### Additional Features
+
+- **Window Title:** `tea.SetWindowTitle("My App")` - Set terminal title
+- **FPS Control:** `tea.WithMaxFPS(30)` - Control rendering framerate
+- **Environment Vars:** `tea.WithEnvironment(env)` - Essential for SSH/Wish
+- **Custom Outputs:** `tea.WithOutput(os.Stderr)` - Render to stderr/buffers
+- **Extended Mouse:** Mouse tracking across entire window (v0.25.0)
+- **Windows Improvements:** Better input handling and resize events (v0.26.0)
+
+### v2.0 Beta Features
+
+**Split keyboard enhancements** - More granular control:
+- `WithKeyReleases()` - Key release events
+- `WithUniformKeyLayout()` - Uniform layout format
+- `RequestKeyDisambiguation()` - Disambiguated key events
+
+**Debug mode:** Set `TEA_DEBUG=1` to dump panic traces
 
 ---
 
